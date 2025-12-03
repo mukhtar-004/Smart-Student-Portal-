@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Smart Student Portal</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <h1 class="brand">Smart Student Portal</h1>
+    <div class="top-actions">
+      <button id="toggle-theme" aria-label="Toggle dark mode">🌙</button>
+      <button id="import-json">Import</button>
+      <button id="export-json">Export</button>
+      <button id="logout-btn" hidden>Logout</button>
+    </div>
+  </header>
+
+  <main id="app" class="container">
+    <!-- AUTH UI -->
+    <section id="auth-section" class="card">
+      <div id="auth-tabs">
+        <button id="show-register" class="active">Register</button>
+        <button id="show-login">Login</button>
+      </div>
+
+      <form id="register-form" class="form">
+        <h2>Register</h2>
+        <label>Username
+          <input id="reg-username" required minlength="3" />
+        </label>
+        <label>Email
+          <input id="reg-email" type="email" required />
+        </label>
+        <label>Password
+          <input id="reg-password" type="password" required minlength="8" />
+        </label>
+        <label>Confirm Password
+          <input id="reg-password2" type="password" required />
+        </label>
+        <div class="hint">Password must be ≥8 characters and include a number.</div>
+        <button type="submit">Create Account</button>
+      </form>
+
+      <form id="login-form" class="form hidden" aria-hidden="true">
+        <h2>Login</h2>
+        <label>Email
+          <input id="login-email" type="email" required />
+        </label>
+        <label>Password
+          <input id="login-password" type="password" required />
+        </label>
+        <button type="submit">Login</button>
+      </form>
+    </section>
+
+    <!-- APP UI -->
+    <section id="dashboard" class="hidden">
+      <div class="grid">
+        <aside class="sidebar card">
+          <div class="profile-preview">
+            <img id="profile-pic-preview" src="" alt="profile" />
+            <h3 id="profile-name">Student</h3>
+            <p id="profile-email">email@example.com</p>
+          </div>
+
+          <nav class="nav">
+            <button data-view="profile" class="nav-btn active">Profile</button>
+            <button data-view="courses" class="nav-btn">Courses</button>
+            <button data-view="assignments" class="nav-btn">Assignments</button>
+            <button data-view="attendance" class="nav-btn">Attendance</button>
+            <button data-view="report" class="nav-btn">Report Card</button>
+          </nav>
+        </aside>
+
+        <div class="main-card card">
+          <!-- PROFILE VIEW -->
+          <div id="view-profile" class="view">
+            <h2>Profile</h2>
+            <form id="profile-form" class="form">
+              <label>Full name
+                <input id="profile-name-input" required />
+              </label>
+              <label>Bio
+                <textarea id="profile-bio"></textarea>
+              </label>
+              <label>Profile picture
+                <input id="profile-pic" type="file" accept="image/*" />
+              </label>
+              <img id="profile-pic-preview-small" src="" alt="preview" class="small-preview" />
+              <button type="submit">Save Profile</button>
+            </form>
+          </div>
+
+          <!-- COURSES VIEW -->
+          <div id="view-courses" class="view hidden">
+            <h2>Courses</h2>
+            <form id="course-form" class="inline-form">
+              <input id="course-title" placeholder="Title" required />
+              <input id="course-instructor" placeholder="Instructor" />
+              <input id="course-credits" type="number" placeholder="Credits" min="0" value="3" />
+              <select id="course-semester">
+                <option value="Fall">Fall</option>
+                <option value="Spring">Spring</option>
+                <option value="Summer">Summer</option>
+              </select>
+              <button id="add-course">Add</button>
+            </form>
+
+            <div class="table-controls">
+              <label>Filter semester:
+                <select id="filter-semester"><option value="">All</option><option>Fall</option><option>Spring</option><option>Summer</option></select>
+              </label>
+              <label>Sort by:
+                <select id="sort-courses"><option value="title">Title</option><option value="credits">Credits</option></select>
+              </label>
+              <input id="search-courses" placeholder="Search courses" />
+            </div>
+
+            <table id="courses-table">
+              <thead><tr><th>Title</th><th>Instructor</th><th>Credits</th><th>Semester</th><th>Grade</th><th>Actions</th></tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+
+          <!-- ASSIGNMENTS VIEW -->
+          <div id="view-assignments" class="view hidden">
+            <h2>Assignments</h2>
+            <div>
+              <label>Select course:
+                <select id="assign-course-select"></select>
+              </label>
+              <button id="show-add-assignment">+ New Assignment</button>
+            </div>
+
+            <form id="assignment-form" class="form hidden">
+              <input id="assign-title" placeholder="Title" required />
+              <input id="assign-due" type="date" required />
+              <input id="assign-points" type="number" min="1" value="100" />
+              <textarea id="assign-desc" placeholder="Description"></textarea>
+              <button id="save-assign">Save Assignment</button>
+              <button id="cancel-assign" type="button">Cancel</button>
+            </form>
+
+            <div id="assignments-list"></div>
+          </div>
+
+          <!-- ATTENDANCE VIEW -->
+          <div id="view-attendance" class="view hidden">
+            <h2>Attendance</h2>
+            <label>Select course:
+              <select id="att-course-select"></select>
+            </label>
+            <div class="attendance-controls">
+              <input id="att-date" type="date" />
+              <button id="mark-present">Present</button>
+              <button id="mark-absent">Absent</button>
+            </div>
+            <div id="attendance-list"></div>
+          </div>
+
+          <!-- REPORT VIEW -->
+          <div id="view-report" class="view hidden">
+            <h2>Report Card</h2>
+            <div id="report-content"></div>
+            <button id="print-report">Print Report</button>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Small toast area -->
+    <div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
