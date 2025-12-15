@@ -7,7 +7,7 @@
 body{font-family:Inter,system-ui,Arial; margin:0; background:var(--bg); color:#111; line-height:1.4}
 .topbar{display:flex;align-items:center;justify-content:space-between;padding:0.6rem 1rem;background:linear-gradient(90deg,#fff, #f0f4ff);box-shadow:0 2px 6px rgba(0,0,0,.06)}
 .brand{margin:0;font-size:1.1rem}
-.top-actions button{margin-left:.4rem;padding:.4rem .6rem;border-radius:6px;border:1px solid #ddd;background:#fff;cursor:pointer}
+.top-actions button{margin-left:.4rem;padding:.4rem .6rem;border-radius:6px;border:1px solid #ddd;background:#fff;cursor:pointer;color:black}
 
 .container{padding:1rem;max-width:1100px;margin:16px auto}
 .card{background:var(--card);border-radius:var(--radius);padding:1rem;box-shadow:0 6px 20px rgba(15,25,40,.06)}
@@ -17,7 +17,7 @@ body{font-family:Inter,system-ui,Arial; margin:0; background:var(--bg); color:#1
 .profile-preview img{width:84px;height:84px;border-radius:50%;object-fit:cover;background:#eee}
 .small-preview{width:48px;height:48px;border-radius:6px;display:block;margin:.6rem 0}
 .nav{display:flex;flex-direction:column;margin-top:1rem}
-.nav-btn{padding:.5rem;border-radius:6px;border:none;background:transparent;text-align:left;cursor:pointer}
+.nav-btn{padding:.5rem;border-radius:6px;border:none;background:transparent;text-align:left;cursor:pointer;color:#2b7cff}
 .nav-btn.active{background:linear-gradient(90deg,var(--accent),#5aa0ff22);color:var(--accent)}
 
 .form label{display:block;margin:.6rem 0}
@@ -53,3 +53,4 @@ body.dark input, body.dark textarea, body.dark select{background:#081425;color:#
   .main-card, #report-content{box-shadow:none;border:none}
   #report-content h1{font-size:18px}
 }
+
